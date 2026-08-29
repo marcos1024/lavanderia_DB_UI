@@ -100,6 +100,12 @@ public class LavanderiaFrame extends JFrame {
                 System.exit(0); //Termina la ejecución
             }
         });
+        btnRegistrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     private void registrarPedido() {

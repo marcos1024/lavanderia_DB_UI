@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -51,6 +52,7 @@ public class LavanderiaFrame extends JFrame {
     private JButton btnRefrescar;
     private JTable tablaPedidos;
     private JTextArea txtLog;
+    private JButton SALIRButton;
 
     private final PedidoRepositorio repositorio;
     private final CalculadoraTotal calculadora;
@@ -91,6 +93,13 @@ public class LavanderiaFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        SALIRButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //dispose();//Cierra solo la ventana
+                System.exit(0); //Termina la ejecución
+            }
+        });
     }
 
     private void registrarPedido() {

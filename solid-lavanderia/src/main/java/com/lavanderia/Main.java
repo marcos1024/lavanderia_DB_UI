@@ -15,7 +15,7 @@ public class Main {
         // Raiz de composicion: aca se elige la implementacion concreta del
         // repositorio y se inyecta en el resto de la app (DIP). Si Postgres
         // no esta disponible (por ejemplo, db.properties sin configurar),
-        // se cae a un repositorio en memoria para no bloquear la UI.
+        // se carga a un repositorio en memoria para no bloquear la UI.
         PedidoRepositorio repositorio = crearRepositorio();
         CalculadoraTotal calculadora = new CalculadoraTotal();
 

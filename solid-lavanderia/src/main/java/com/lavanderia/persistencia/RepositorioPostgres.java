@@ -1,11 +1,9 @@
 package com.lavanderia.persistencia;
 
 import com.lavanderia.modelo.Cliente;
-import com.lavanderia.modelo.LavadoBasico;
-import com.lavanderia.modelo.LavadoEnSeco;
 import com.lavanderia.modelo.Pedido;
-import com.lavanderia.modelo.Planchado;
 import com.lavanderia.modelo.ServicioLavado;
+import com.lavanderia.modelo.TipoServicio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,7 +53,7 @@ public class RepositorioPostgres implements PedidoRepositorio {
                 try (PreparedStatement ps = con.prepareStatement(insertServicio)) {
                     for (ServicioLavado servicio : pedido.getServicios()) {
                         ps.setInt(1, pedido.getId());
-                        ps.setString(2, servicio.getClass().getSimpleName());
+                        ps.setString(2, (servicio instanceof Enum<?> e) ? e.name() : servicio.getClass().getSimpleName());
                         ps.setString(3, servicio.descripcion());
                         ps.setDouble(4, servicio.precio());
                         ps.addBatch();
@@ -138,9 +136,9 @@ public class RepositorioPostgres implements PedidoRepositorio {
 
     private ServicioLavado crearServicio(String tipo) {
         return switch (tipo) {
-            case "LavadoBasico" -> new LavadoBasico();
-            case "LavadoEnSeco" -> new LavadoEnSeco();
-            case "Planchado" -> new Planchado();
+            case "LavadoBasico", "LAVADO_BASICO" -> TipoServicio.LAVADO_BASICO;
+            case "LavadoEnSeco", "LAVADO_EN_SECO" -> TipoServicio.LAVADO_EN_SECO;
+            case "Planchado", "PLANCHADO" -> TipoServicio.PLANCHADO;
             default -> throw new IllegalArgumentException("Tipo de servicio desconocido: " + tipo);
         };
     }

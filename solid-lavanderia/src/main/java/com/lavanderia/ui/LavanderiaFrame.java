@@ -4,11 +4,9 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.lavanderia.aplicacion.GestorPedidos;
 import com.lavanderia.modelo.Cliente;
-import com.lavanderia.modelo.LavadoBasico;
-import com.lavanderia.modelo.LavadoEnSeco;
 import com.lavanderia.modelo.Pedido;
-import com.lavanderia.modelo.Planchado;
 import com.lavanderia.modelo.ServicioLavado;
+import com.lavanderia.modelo.TipoServicio;
 import com.lavanderia.notificacion.Notificador;
 import com.lavanderia.notificacion.NotificadorSwing;
 import com.lavanderia.persistencia.PedidoRepositorio;
@@ -54,18 +52,13 @@ public class LavanderiaFrame extends JFrame {
     private JTextArea txtLog;
     private JButton SALIRButton;
 
-    private final PedidoRepositorio repositorio;
-    private final CalculadoraTotal calculadora;
-    private final Notificador notificador;
     private final GestorPedidos gestor;
     private DefaultTableModel tableModel;
 
-    public LavanderiaFrame(PedidoRepositorio repositorio, CalculadoraTotal calculadora) {
+    public LavanderiaFrame(GestorPedidos gestor) {
         super("Lavanderia - Gestion de pedidos");
-        this.repositorio = repositorio;
-        this.calculadora = calculadora;
-        this.notificador = new NotificadorSwing(this::log);
-        this.gestor = new GestorPedidos(repositorio, notificador, calculadora);
+        this.gestor = gestor;
+        this.gestor.setNotificador(new NotificadorSwing(this::log));
 
         $$$setupUI$$$();
         setContentPane(contentPane);
@@ -93,19 +86,11 @@ public class LavanderiaFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        SALIRButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //dispose();//Cierra solo la ventana
-                System.exit(0); //Termina la ejecución
-            }
-        });
-        btnRegistrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        SALIRButton.addActionListener(e -> System.exit(0));
+    }
 
-            }
-        });
+    public LavanderiaFrame(PedidoRepositorio repositorio, CalculadoraTotal calculadora) {
+        this(new GestorPedidos(repositorio, null, calculadora));
     }
 
     private void registrarPedido() {
@@ -134,11 +119,11 @@ public class LavanderiaFrame extends JFrame {
         Cliente cliente = new Cliente(clienteId, nombre, email);
         Pedido pedido = new Pedido(siguientePedidoId(), cliente);
         if (chkLavadoBasico.isSelected())
-            pedido.agregarServicio(new LavadoBasico());
+            pedido.agregarServicio(TipoServicio.LAVADO_BASICO);
         if (chkLavadoSeco.isSelected())
-            pedido.agregarServicio(new LavadoEnSeco());
+            pedido.agregarServicio(TipoServicio.LAVADO_EN_SECO);
         if (chkPlanchado.isSelected())
-            pedido.agregarServicio(new Planchado());
+            pedido.agregarServicio(TipoServicio.PLANCHADO);
 
         try {
             gestor.registrarPedido(pedido);
@@ -164,36 +149,35 @@ public class LavanderiaFrame extends JFrame {
 
     private void actualizarTotalEstimado() {
         double total = 0.0;
-        if (chkLavadoBasico.isSelected()) total += new LavadoBasico().precio();
-        if (chkLavadoSeco.isSelected()) total += new LavadoEnSeco().precio();
-        if (chkPlanchado.isSelected()) total += new Planchado().precio();
+        if (chkLavadoBasico.isSelected()) total += TipoServicio.LAVADO_BASICO.precio();
+        if (chkLavadoSeco.isSelected()) total += TipoServicio.LAVADO_EN_SECO.precio();
+        if (chkPlanchado.isSelected()) total += TipoServicio.PLANCHADO.precio();
         lblTotal.setText(String.format("$%.2f", total));
     }
 
     private void refrescarTabla() {
         tableModel.setRowCount(0);
-        for (Pedido pedido : repositorio.listar()) {
+        for (Pedido pedido : gestor.listarPedidos()) {
             StringBuilder servicios = new StringBuilder();
             for (ServicioLavado servicio : pedido.getServicios()) {
                 if (servicios.length() > 0) servicios.append(", ");
                 servicios.append(servicio.descripcion());
             }
-            double total = calculadora.calcular(pedido);
             tableModel.addRow(new Object[]{
                     pedido.getId(),
                     pedido.getCliente().getNombre(),
                     servicios.toString(),
-                    String.format("$%.2f", total)
+                    String.format("$%.2f", pedido.calcularTotal())
             });
         }
     }
 
     private int siguientePedidoId() {
-        return repositorio.listar().stream().mapToInt(Pedido::getId).max().orElse(0) + 1;
+        return gestor.siguientePedidoId();
     }
 
     private int siguienteClienteId() {
-        return repositorio.listar().stream().mapToInt(p -> p.getCliente().getId()).max().orElse(0) + 1;
+        return gestor.siguienteClienteId();
     }
 
     private void log(String mensaje) {

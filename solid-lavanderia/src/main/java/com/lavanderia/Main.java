@@ -4,7 +4,7 @@ import com.lavanderia.persistencia.PedidoRepositorio;
 import com.lavanderia.persistencia.RepositorioEnMemoria;
 import com.lavanderia.persistencia.RepositorioPostgres;
 import com.lavanderia.aplicacion.GestorPedidos;
-import com.lavanderia.ui.LavanderiaFrame;
+import com.lavanderia.ui.Formv3;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -20,7 +20,8 @@ public class Main {
         GestorPedidos gestor = new GestorPedidos(repositorio, null);
 
         SwingUtilities.invokeLater(() -> {
-            LavanderiaFrame frame = new LavanderiaFrame(gestor);
+//            LavanderiaFrame frame = new LavanderiaFrame(gestor);
+            Formv3 frame = new Formv3(gestor);
             frame.setVisible(true);
         });
     }

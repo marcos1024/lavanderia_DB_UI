@@ -2,6 +2,7 @@ package com.lavanderia.ui;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 import com.lavanderia.aplicacion.GestorPedidos;
 import com.lavanderia.modelo.Cliente;
 import com.lavanderia.modelo.Pedido;
@@ -194,98 +195,77 @@ public class LavanderiaFrame extends JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(10, 2, new Insets(10, 10, 10, 10), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(11, 4, new Insets(10, 10, 10, 10), -1, -1));
 
-        final JLabel lblClienteId = new JLabel();
-        lblClienteId.setText("ID Cliente:");
-        contentPane.add(lblClienteId, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("ID Cliente:");
+        contentPane.add(label1, new GridConstraints(0, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
 
         txtClienteId = new JTextField();
-        contentPane.add(txtClienteId, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED,
-                null, new Dimension(150, -1), null, 0, false));
+        contentPane.add(txtClienteId, new GridConstraints(0, 3, 1, 1, 8, 1, 6, 0, null, new Dimension(150, -1), null, 0, false));
 
-        final JLabel lblNombre = new JLabel();
-        lblNombre.setText("Nombre:");
-        contentPane.add(lblNombre, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                null, null, null, 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setText("Nombre:");
+        contentPane.add(label2, new GridConstraints(1, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
 
         txtClienteNombre = new JTextField();
-        contentPane.add(txtClienteNombre, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED,
-                null, new Dimension(150, -1), null, 0, false));
+        contentPane.add(txtClienteNombre, new GridConstraints(1, 3, 1, 1, 8, 1, 6, 0, null, new Dimension(150, -1), null, 0, false));
 
-        final JLabel lblEmail = new JLabel();
-        lblEmail.setText("Email:");
-        contentPane.add(lblEmail, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                null, null, null, 0, false));
+        final JLabel label3 = new JLabel();
+        label3.setText("Email:");
+        contentPane.add(label3, new GridConstraints(2, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
 
         txtClienteEmail = new JTextField();
-        contentPane.add(txtClienteEmail, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED,
-                null, new Dimension(150, -1), null, 0, false));
+        contentPane.add(txtClienteEmail, new GridConstraints(2, 3, 1, 1, 8, 1, 6, 0, null, new Dimension(150, -1), null, 0, false));
 
         chkLavadoBasico = new JCheckBox();
         chkLavadoBasico.setText("Lavado básico ($200.00)");
-        contentPane.add(chkLavadoBasico, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(chkLavadoBasico, new GridConstraints(3, 0, 1, 4, 8, 0, 3, 0, null, null, null, 0, false));
 
         chkLavadoSeco = new JCheckBox();
         chkLavadoSeco.setText("Lavado en seco ($500.00)");
-        contentPane.add(chkLavadoSeco, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(chkLavadoSeco, new GridConstraints(4, 0, 1, 4, 8, 0, 3, 0, null, null, null, 0, false));
 
         chkPlanchado = new JCheckBox();
         chkPlanchado.setText("Planchado ($150.00)");
-        contentPane.add(chkPlanchado, new GridConstraints(5, 0, 1, 2, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(chkPlanchado, new GridConstraints(5, 0, 1, 4, 8, 0, 3, 0, null, null, null, 0, false));
 
-        final JLabel lblTotalCaption = new JLabel();
-        lblTotalCaption.setText("Total estimado:");
-        contentPane.add(lblTotalCaption, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                null, null, null, 0, false));
+        final JLabel label4 = new JLabel();
+        label4.setText("Total estimado:");
+        contentPane.add(label4, new GridConstraints(6, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
 
         lblTotal = new JLabel();
         lblTotal.setText("$0.00");
-        contentPane.add(lblTotal, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST,
-                GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                null, null, null, 0, false));
+        contentPane.add(lblTotal, new GridConstraints(6, 3, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
 
         btnRegistrar = new JButton();
         btnRegistrar.setText("Registrar pedido");
-        contentPane.add(btnRegistrar, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER,
-                GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnRegistrar, new GridConstraints(7, 0, 1, 1, 0, 1, 3, 0, null, null, null, 0, false));
 
         btnRefrescar = new JButton();
         btnRefrescar.setText("Refrescar lista");
-        contentPane.add(btnRefrescar, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_CENTER,
-                GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(btnRefrescar, new GridConstraints(7, 3, 1, 1, 0, 1, 3, 0, null, null, null, 0, false));
+
+        final JScrollPane scrollTabla = new JScrollPane();
+        contentPane.add(scrollTabla, new GridConstraints(8, 0, 1, 4, 0, 3, 7, 7, null, new Dimension(400, 150), null, 0, false));
 
         tablaPedidos = new JTable();
-        final JScrollPane scrollPedidos = new JScrollPane();
-        scrollPedidos.setViewportView(tablaPedidos);
-        contentPane.add(scrollPedidos, new GridConstraints(8, 0, 1, 2, GridConstraints.ANCHOR_CENTER,
-                GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW,
-                null, new Dimension(400, 150), null, 0, false));
+        scrollTabla.setViewportView(tablaPedidos);
+
+        final JScrollPane scrollLog = new JScrollPane();
+        contentPane.add(scrollLog, new GridConstraints(9, 0, 1, 4, 0, 3, 7, 7, null, new Dimension(400, 80), null, 0, false));
 
         txtLog = new JTextArea();
         txtLog.setEditable(false);
         txtLog.setRows(4);
-        final JScrollPane scrollLog = new JScrollPane();
         scrollLog.setViewportView(txtLog);
-        contentPane.add(scrollLog, new GridConstraints(9, 0, 1, 2, GridConstraints.ANCHOR_CENTER,
-                GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW,
-                null, new Dimension(400, 80), null, 0, false));
+
+        final Spacer spacer1 = new Spacer();
+        contentPane.add(spacer1, new GridConstraints(10, 1, 1, 1, 0, 1, 6, 1, null, null, null, 0, false));
+
+        SALIRButton = new JButton();
+        SALIRButton.setText("SALIR");
+        contentPane.add(SALIRButton, new GridConstraints(10, 3, 1, 1, 0, 1, 3, 0, null, null, null, 0, false));
     }
 
     public JComponent $$$getRootComponent$$$() {

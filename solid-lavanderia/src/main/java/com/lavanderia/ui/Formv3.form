@@ -120,7 +120,7 @@
               <text value="Actualizar lista"/>
             </properties>
           </component>
-          <scrollpane id="77be5">
+          <scrollpane id="77be5" binding="scrollTabla">
             <constraints>
               <grid row="8" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="400" height="320"/>

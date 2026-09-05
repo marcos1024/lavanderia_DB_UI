@@ -111,13 +111,14 @@ public class Formv3 extends JFrame {
         // Con ventana de tamano fijo no siempre entran todas las filas: se deja
         // la barra de scroll siempre visible para que quede claro que hay que
         // bajar para ver el resto de los pedidos.
+        //setSize(700, 650);
+        //setResizable(false);
         scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
 
     /**
      * Recupera los datos de la agenda: le pide al gestor la lista de pedidos
-     * guardados (base de datos o memoria, segun este armado el GestorPedidos)
-     * y repinta la tabla desde cero.
+     * guardados
      */
     private void recuperarDatos() {
         tableModel.setRowCount(0);

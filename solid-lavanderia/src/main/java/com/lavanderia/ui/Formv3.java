@@ -36,7 +36,7 @@ public class Formv3 extends JFrame {
 
     // El gestor es quien sabe guardar/recuperar pedidos y avisar al cliente.
     private final GestorPedidos gestor;
-    // Modelo de la tabla: es lo que realmente muestra las filas en pantalla.
+    // Modelo de la tabla
     private DefaultTableModel tableModel;
 
     public Formv3(GestorPedidos gestor) {
@@ -57,18 +57,21 @@ public class Formv3 extends JFrame {
         btnAgregarPedido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 registrarPedido();
             }
         });
         btnActualizarLista.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 recuperarDatos();
             }
         });
         btnSalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.exit(0);
             }
         });
@@ -95,8 +98,9 @@ public class Formv3 extends JFrame {
 
         // Con ventana de tamano fijo no siempre entran todas las filas: se deja
         // la barra de scroll siempre visible para que quede claro que hay que
-        // bajar para ver el resto de los pedidos (por defecto solo aparece
-        // "si hace falta", y eso puede pasar desapercibido).
+        // bajar para ver el resto de los pedidos.
+        //setSize(700, 650);
+        //setResizable(false);
         scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
 

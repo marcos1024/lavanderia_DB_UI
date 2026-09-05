@@ -1,8 +1,5 @@
 package com.lavanderia.ui;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 import com.lavanderia.aplicacion.GestorPedidos;
 import com.lavanderia.modelo.Cliente;
 import com.lavanderia.modelo.Pedido;
@@ -11,9 +8,7 @@ import com.lavanderia.modelo.TipoServicio;
 import com.lavanderia.notificacion.NotificadorSwing;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -45,10 +40,6 @@ public class Formv3 extends JFrame {
         // El log de la ventana muestra los avisos que genera el gestor al registrar un pedido.
         this.gestor.setNotificador(new NotificadorSwing(this::log));
 
-        // Arma contentPane y el resto de los componentes "a mano" (no depende
-        // de que IntelliJ instrumente el .form al compilar, asi que funciona
-        // igual desde el IDE que desde mvn/consola).
-        $$$setupUI$$$();
         setContentPane(contentPane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -211,91 +202,5 @@ public class Formv3 extends JFrame {
         chkPlanchado.setSelected(false);
         txtClienteId.setText(String.valueOf(gestor.siguienteClienteId()));
         actualizarTotalEstimado();
-    }
-
-    /**
-     * Arma contentPane con todos los componentes, siguiendo el mismo layout
-     * de grilla (11 filas x 4 columnas) definido en Formv3.form. Se escribe
-     * a mano (en vez de dejarselo al GUI Designer) para que la ventana
-     * funcione igual dentro de IntelliJ que corriendo por consola/Maven.
-     */
-    private void $$$setupUI$$$() {
-        contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(11, 4, new Insets(10, 10, 10, 10), -1, -1));
-
-        final JLabel lblId = new JLabel();
-        lblId.setText("ID Cliente:");
-        contentPane.add(lblId, new GridConstraints(0, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
-
-        txtClienteId = new JTextField();
-        contentPane.add(txtClienteId, new GridConstraints(0, 3, 1, 1, 8, 1, 6, 0, null, new Dimension(150, -1), null, 0, false));
-
-        final JLabel lblNombre = new JLabel();
-        lblNombre.setText("Nombre:");
-        contentPane.add(lblNombre, new GridConstraints(1, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
-
-        txtClienteNombre = new JTextField();
-        contentPane.add(txtClienteNombre, new GridConstraints(1, 3, 1, 1, 8, 1, 6, 0, null, new Dimension(150, -1), null, 0, false));
-
-        final JLabel lblEmail = new JLabel();
-        lblEmail.setText("Email:");
-        contentPane.add(lblEmail, new GridConstraints(2, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
-
-        txtClienteEmail = new JTextField();
-        contentPane.add(txtClienteEmail, new GridConstraints(2, 3, 1, 1, 8, 1, 6, 0, null, new Dimension(150, -1), null, 0, false));
-
-        chkLavadoBasico = new JCheckBox();
-        chkLavadoBasico.setText("Lavado básico ($200.00)");
-        contentPane.add(chkLavadoBasico, new GridConstraints(3, 0, 1, 4, 8, 0, 3, 0, null, null, null, 0, false));
-
-        chkLavadoSeco = new JCheckBox();
-        chkLavadoSeco.setText("Lavado en seco ($500.00)");
-        contentPane.add(chkLavadoSeco, new GridConstraints(4, 0, 1, 4, 8, 0, 3, 0, null, null, null, 0, false));
-
-        chkPlanchado = new JCheckBox();
-        chkPlanchado.setText("Planchado ($150.00)");
-        contentPane.add(chkPlanchado, new GridConstraints(5, 0, 1, 4, 8, 0, 3, 0, null, null, null, 0, false));
-
-        final JLabel lblTotalCaption = new JLabel();
-        lblTotalCaption.setText("Total estimado:");
-        contentPane.add(lblTotalCaption, new GridConstraints(6, 0, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
-
-        lblTotal = new JLabel();
-        lblTotal.setText("$0.00");
-        contentPane.add(lblTotal, new GridConstraints(6, 3, 1, 1, 8, 0, 0, 0, null, null, null, 0, false));
-
-        btnAgregarPedido = new JButton();
-        btnAgregarPedido.setText("Agregar pedido");
-        contentPane.add(btnAgregarPedido, new GridConstraints(7, 0, 1, 1, 0, 1, 3, 0, null, null, null, 0, false));
-
-        btnActualizarLista = new JButton();
-        btnActualizarLista.setText("Actualizar lista");
-        contentPane.add(btnActualizarLista, new GridConstraints(7, 3, 1, 1, 0, 1, 3, 0, null, null, null, 0, false));
-
-        scrollTabla = new JScrollPane();
-        scrollTabla.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        contentPane.add(scrollTabla, new GridConstraints(8, 0, 1, 4, 0, 3, 7, 7, null, new Dimension(400, 320), null, 0, false));
-
-        tablaPedidos = new JTable();
-        scrollTabla.setViewportView(tablaPedidos);
-
-        final JScrollPane scrollLog = new JScrollPane();
-        contentPane.add(scrollLog, new GridConstraints(9, 0, 1, 4, 0, 3, 7, 7, null, new Dimension(400, 80), null, 0, false));
-
-        txtLog = new JTextArea();
-        txtLog.setEditable(false);
-        txtLog.setRows(4);
-        scrollLog.setViewportView(txtLog);
-
-        final Spacer spacer1 = new Spacer();
-        contentPane.add(spacer1, new GridConstraints(10, 1, 1, 1, 0, 1, 6, 1, null, null, null, 0, false));
-
-        btnSalir = new JButton();
-        btnSalir.setText("Salir");
-        contentPane.add(btnSalir, new GridConstraints(10, 3, 1, 1, 0, 1, 3, 0, null, null, null, 0, false));
-    }
-
-    public JComponent $$$getRootComponent$$$() {
-        return contentPane;
     }
 }

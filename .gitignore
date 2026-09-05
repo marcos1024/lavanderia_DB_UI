@@ -1,0 +1,10 @@
+target/
+**/target/
+*.class
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+dependency-reduced-pom.xml
+**/dependency-reduced-pom.xml
+

@@ -3,8 +3,8 @@ package com.lavanderia;
 import com.lavanderia.persistencia.PedidoRepositorio;
 import com.lavanderia.persistencia.RepositorioEnMemoria;
 import com.lavanderia.persistencia.RepositorioPostgres;
-import com.lavanderia.servicio.CalculadoraTotal;
-import com.lavanderia.ui.LavanderiaFrame;
+import com.lavanderia.aplicacion.GestorPedidos;
+import com.lavanderia.ui.Formv3;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -17,10 +17,11 @@ public class Main {
         // no esta disponible (por ejemplo, db.properties sin configurar),
         // se carga a un repositorio en memoria para no bloquear la UI.
         PedidoRepositorio repositorio = crearRepositorio();
-        CalculadoraTotal calculadora = new CalculadoraTotal();
+        GestorPedidos gestor = new GestorPedidos(repositorio, null);
 
         SwingUtilities.invokeLater(() -> {
-            LavanderiaFrame frame = new LavanderiaFrame(repositorio, calculadora);
+//            LavanderiaFrame frame = new LavanderiaFrame(gestor);
+            Formv3 frame = new Formv3(gestor);
             frame.setVisible(true);
         });
     }

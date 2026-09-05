@@ -1,11 +1,12 @@
 package com.lavanderia.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * SRP: representa un pedido (un cliente y la lista de servicios que pidio).
- * Solo agrupa datos; no sabe calcular ni persistir.
+ * Information Expert (GRASP): calcula de forma autonoma su monto total a partir de sus servicios.
  */
 public class Pedido {
     private final int id;
@@ -21,7 +22,19 @@ public class Pedido {
         servicios.add(servicio);
     }
 
-    public int getId() { return id; }
-    public Cliente getCliente() { return cliente; }
-    public List<ServicioLavado> getServicios() { return servicios; }
+    public double calcularTotal() {
+        return servicios.stream().mapToDouble(ServicioLavado::precio).sum();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<ServicioLavado> getServicios() {
+        return Collections.unmodifiableList(servicios);
+    }
 }

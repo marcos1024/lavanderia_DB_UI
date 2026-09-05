@@ -84,6 +84,27 @@ public class Formv3 extends JFrame {
         setSize(700, 650);
         setResizable(false); //No permite modificar el tamaño del form
         setLocationRelativeTo(null);
+
+        // Los tres checkboxes comparten el mismo listener: cada vez que se
+        // tilda/destilda uno, se vuelve a sumar el total estimado.
+        ActionListener recalcularTotal = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarTotalEstimado();
+            }
+        };
+        chkLavadoBasico.addActionListener(recalcularTotal);
+        chkLavadoSeco.addActionListener(recalcularTotal);
+        chkPlanchado.addActionListener(recalcularTotal);
+    }
+
+    /** Suma el precio de los servicios tildados y lo muestra en lblTotal. */
+    private void actualizarTotalEstimado() {
+        double total = 0.0;
+        if (chkLavadoBasico.isSelected()) total += TipoServicio.LAVADO_BASICO.precio();
+        if (chkLavadoSeco.isSelected()) total += TipoServicio.LAVADO_EN_SECO.precio();
+        if (chkPlanchado.isSelected()) total += TipoServicio.PLANCHADO.precio();
+        lblTotal.setText(String.format("$%.2f", total));
     }
 
     /** Deja la tabla lista con las columnas de la agenda y sin filas editables a mano. */
@@ -99,8 +120,6 @@ public class Formv3 extends JFrame {
         // Con ventana de tamano fijo no siempre entran todas las filas: se deja
         // la barra de scroll siempre visible para que quede claro que hay que
         // bajar para ver el resto de los pedidos.
-        //setSize(700, 650);
-        //setResizable(false);
         scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
 
@@ -191,6 +210,7 @@ public class Formv3 extends JFrame {
         chkLavadoSeco.setSelected(false);
         chkPlanchado.setSelected(false);
         txtClienteId.setText(String.valueOf(gestor.siguienteClienteId()));
+        actualizarTotalEstimado();
     }
 
     /**
